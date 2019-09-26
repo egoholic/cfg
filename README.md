@@ -15,6 +15,11 @@ $ BOOL_ARG=true STRING="some string" INT=45 go run test/main.go
 
 - Defaults:
 
-
+```golang
+defaults := map[string]string
+defaults["somekey"] = "some value"
+config := cfg.Config(defaults)
+someKey, err := config.StringArg("somekey", "Some key description.", "somekey") // someKey with be "some value"
+```
 
 

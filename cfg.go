@@ -10,6 +10,9 @@ import (
 	"github.com/egoholic/cfg/multikey"
 )
 
+var TrueValues = []string{"true", "1", "enabled", "on", "yes", "y", "Y"}
+var FalseValues = []string{"false", "0", "disabled", "off", "no", "n", "N"}
+
 type Cfg struct {
 	defaults map[string]string
 	docs     map[string]string
@@ -102,11 +105,15 @@ func (cfg *Cfg) BoolArg(name, desc, key string) (boolValue bool, err error) {
 	if err != nil {
 		return
 	}
-	if raw == "true" || raw == "1" || raw == "enabled" || raw == "on" || raw == "yes" {
-		return true, nil
+	for _, tv := range TrueValues {
+		if raw == tv {
+			return true, nil
+		}
 	}
-	if raw == "false" || raw == "0" || raw == "disabled" || raw == "off" || raw == "no" {
-		return false, nil
+	for _, fv := range FalseValues {
+		if raw == fv {
+			return false, nil
+		}
 	}
 	return false, fmt.Errorf("bool argument '%s' not provided, got: '%s'", name, raw)
 }

@@ -8,11 +8,15 @@ import (
 )
 
 const (
-	Integer = "Integer"
-	String  = "String"
-	Bool    = "Bool"
-	Command = "Command"
+	Integer       = "Integer"
+	IntegersArray = "Array of Integers"
+	String        = "String"
+	StringsArray  = "Array of Strings"
+	Bool          = "Bool"
+	Command       = "Command"
 )
+
+var ArgTypes = []string{Integer, IntegersArray, String, StringsArray, Bool, Command}
 
 type Doc struct {
 	Name          string
@@ -24,8 +28,8 @@ func New(name, typ, desc string, mk multikey.MK) (doc Doc, err error) {
 		err = fmt.Errorf("`name` should be at least 4 chars long, got: `%s` (len: %d)", name, len(name))
 		return
 	}
-	if typ != Integer && typ != String && typ != Bool && typ != Command {
-		err = fmt.Errorf("`typ` should be one of: `%s`,`%s`,`%s`,`%s`, got: %s", Integer, String, Bool, Command, typ)
+	err = checkTyp(typ)
+	if err != nil {
 		return
 	}
 	if len(desc) < 16 {
@@ -57,4 +61,13 @@ func New(name, typ, desc string, mk multikey.MK) (doc Doc, err error) {
 		Documentation: sb.String(),
 	}
 	return
+}
+
+func checkTyp(typ string) error {
+	for _, argT := range ArgTypes {
+		if argT == typ {
+			return nil
+		}
+	}
+	return fmt.Errorf("wrong command type, should be one of: [%s], got: %s", strings.Join(ArgTypes, ", "), typ)
 }

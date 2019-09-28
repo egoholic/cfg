@@ -22,28 +22,29 @@ var (
 func init() {
 	defaults := map[string]interface{}{}
 	defaults["default"] = "Default Value"
+
 	config = Config(defaults)
-	boolArg, err = config.BoolArg("Bool Arg", "Test boolean argument.", "bool_arg")
+	boolArg, err = config.BoolArg("BoolArg", "test boolean argument", "bool")
 	if err != nil {
 		panic(err)
 	}
-	stringArg, err = config.StringArg("String Arg", "Test string argument.", "string")
+	stringArg, err = config.StringArg("StringArg", "test string argumentt", "string")
 	if err != nil {
 		panic(err)
 	}
-	intArg, err = config.IntArg("Integer Arg", "Test integer argument.", "int")
+	intArg, err = config.IntArg("IntegerArg", "test integer argumentt", "int")
 	if err != nil {
 		panic(err)
 	}
-	intArrayArg, err = config.IntArrayArg("Integer Array Arg", "Test integer array argument.", "ints")
+	intArrayArg, err = config.IntArrayArg("IntegerArrayArg", "test integer array argument", "ints")
 	if err != nil {
 		panic(err)
 	}
-	stringArrayArg, err = config.StringArrayArg("String Array Arg", "Test string aarray rgument.", "strings")
+	stringArrayArg, err = config.StringArrayArg("String Array Arg", "test string aarray rgument", "strings")
 	if err != nil {
 		panic(err)
 	}
-	defaultStringArg, err = config.StringArg("Default string Arg", "Test default string argument.", "default")
+	defaultStringArg, err = config.StringArg("Default Arg", "test default string argument", "default")
 	if err != nil {
 		panic(err)
 	}
